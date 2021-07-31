@@ -24,6 +24,7 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-codepipeline',
     '@aws-cdk/aws-codepipeline-actions',
     '@aws-cdk/pipelines',
+    '@aws-cdk/aws-lambda-event-sources',
   ],
   deps,
   context: {
