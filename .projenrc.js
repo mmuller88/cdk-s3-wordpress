@@ -1,15 +1,27 @@
 const { AwsCdkTypeScriptApp } = require('projen');
+
+const deps = [
+  '@types/aws-lambda',
+  'aws-lambda',
+  'aws-sdk',
+  'esbuild@^0',
+  'aws-cdk-staging-pipeline',
+  'cdk-appsync-transformer',
+  'cdk-iam-floyd',
+];
+
 const project = new AwsCdkTypeScriptApp({
-  cdkVersion: '1.95.2',
+  authorAddress: 'damadden88@googlemail.com',
+  authorName: 'martin.mueller',
+  cdkVersion: '1.116.0',
+  cdkVersionPinning: true,
   defaultReleaseBranch: 'main',
   name: 'video-up',
-
-  // cdkDependencies: undefined,        /* Which AWS CDK modules (those that start with "@aws-cdk/") this app uses. */
-  // deps: [],                          /* Runtime dependencies of this module. */
-  // description: undefined,            /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],                       /* Build dependencies for this module. */
-  // packageName: undefined,            /* The "name" in package.json. */
-  // projectType: ProjectType.UNKNOWN,  /* Which type of project this is (library/app). */
-  // release: undefined,                /* Add release management to this project. */
+  cdkDependencies: [
+    '@aws-cdk/aws-s3',
+    '@aws-cdk/aws-lambda-nodejs',
+    '@aws-cdk/aws-lambda',
+  ],
+  deps,
 });
 project.synth();
