@@ -1,7 +1,5 @@
 import * as core from '@aws-cdk/core';
 import { PipelineStack } from 'aws-cdk-staging-pipeline';
-// import { CustomStack } from 'aws-cdk-staging-pipeline/lib/custom-stack';
-// import { AppSyncStack } from './appsync-stack';
 import { UploadBucketStack } from './upload-bucket-stack';
 
 const app = new core.App();
