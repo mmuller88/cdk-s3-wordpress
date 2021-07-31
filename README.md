@@ -59,11 +59,11 @@ Notice: Normally you don't need to redeploy the pipeline as it picks up changes 
 # Wordpress
 
 ## Create Post
-https://developer.wordpress.org/cli/commands/post/create/
+https://developer.wordpress.org/cli/commands/post/create/ . With the wp cli you can create Posts. For the live environment use `wp` and for the staging environment use `wp-staging`
 
 ```
-wp post create
+wp-staging post create
 
-wp post create --post_title='A post' --post_content='Just a small post.' --meta_input='{"key1":"value1","key2":"value2"}'
+wp-staging post create --post_title='A post' --post_content='Just a small post.' --meta_input='{"key1":"value1","key2":"value2"}'
 Success: Created post 1922.
 ```
