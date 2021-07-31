@@ -16,6 +16,7 @@ export class UploadBucketStack extends CustomStack {
 
     // Create S3 Bucket
     const bucket = new s3.Bucket(this, 'hacklab-videos', {
+      bucketName: 'hacklab-videos',
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
     });
@@ -23,7 +24,7 @@ export class UploadBucketStack extends CustomStack {
     const lambda = new lambdajs.NodejsFunction(this, 'upload-trigger');
 
     lambda.addEventSource(new S3EventSource(bucket, {
-      events: [s3.EventType.OBJECT_CREATED, s3.EventType.OBJECT_REMOVED],
+      events: [s3.EventType.OBJECT_CREATED],
       // filters: [{ prefix: 'subdir/' }], // optional
     }));
 
