@@ -7,6 +7,8 @@ import * as lambda from 'aws-lambda';
 
 const SSH_KEY = process.env.SSH_KEY || 'noSshKey';
 
+const encode = (str: string): string => Buffer.from(str, 'binary').toString('base64');
+
 export async function handler(event: lambda.S3CreateEvent) {
   // exports.handler = async (event/*: lambda.DynamoDBStreamEvent*/) => {
   console.debug(`event: ${JSON.stringify(event)}`);
@@ -27,7 +29,7 @@ export async function handler(event: lambda.S3CreateEvent) {
     host: host,
     user: user,
     // key: fs.readFileSync(pemfile),
-    key: SSH_KEY,
+    key: encode(SSH_KEY),
   });
 
   // let cmd = 'wp';
