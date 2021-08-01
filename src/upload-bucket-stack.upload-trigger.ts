@@ -10,7 +10,7 @@ export async function handler(event: lambda.S3CreateEvent) {
   fileName;
 
   // try {
-  await execSync('ssh');
+  await execSync('find / -name "ssh"');
   // } catch (e) {
   //   console.debug('Got an Invoke Request.');
   // }
