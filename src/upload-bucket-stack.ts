@@ -6,6 +6,8 @@ import * as cdk from '@aws-cdk/core';
 import { CustomStack } from 'aws-cdk-staging-pipeline/lib/custom-stack';
 // import * as statement from 'cdk-iam-floyd';
 
+const decode = (str: string): string => Buffer.from(str, 'base64').toString('binary');
+
 export interface UploadBucketStackProps extends cdk.StackProps {
   readonly stage: string;
   readonly sshKey: string;
@@ -24,7 +26,7 @@ export class UploadBucketStack extends CustomStack {
 
     const lambda = new lambdajs.NodejsFunction(this, 'upload-trigger', {
       environment: {
-        SSH_KEY: props.sshKey,
+        SSH_KEY: decode(props.sshKey),
       },
     });
 

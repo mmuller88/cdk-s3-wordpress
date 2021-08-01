@@ -4,8 +4,6 @@ import { UploadBucketStack } from './upload-bucket-stack';
 
 const app = new cdk.App();
 
-const decode = (str: string): string => Buffer.from(str, 'base64').toString('binary');
-
 new PipelineStack(app, 'UploadBucketStack-pipeline', {
   stackName: 'UploadBucketStack-pipeline',
   // Account and region where the pipeline will be build
@@ -29,7 +27,7 @@ new PipelineStack(app, 'UploadBucketStack-pipeline', {
     const stack = new UploadBucketStack(scope, `UploadBucketStack-${stageAccount.stage}`, {
       // stackName: `UploadBucketStack-${stageAccount.stage}`,
       stage: stageAccount.stage,
-      sshKey: decode(cdk.SecretValue.secretsManager('build/wordpress/raidbox/sshkey').toString()),
+      sshKey: cdk.SecretValue.secretsManager('build/wordpress/raidbox/sshkey').toString(),
     });
 
     return stack;
