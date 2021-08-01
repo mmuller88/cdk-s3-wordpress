@@ -5,6 +5,7 @@ import * as lambda from 'aws-lambda';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 // const { readFileSync } = require('fs');
 
+const SSH_KEY = process.env.SSH_KEY || 'noSshKey';
 
 export async function handler(event: lambda.S3CreateEvent) {
   // exports.handler = async (event/*: lambda.DynamoDBStreamEvent*/) => {
@@ -14,10 +15,10 @@ export async function handler(event: lambda.S3CreateEvent) {
   fileName;
 
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const fs = require('fs');
+  // const fs = require('fs');
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const SSH = require('simple-ssh');
-  const pemfile = 'my.pem';
+  // const pemfile = 'my.pem';
   const user = 'wp';
   const host = 'b9emwoc.myraidbox.de';
 
@@ -25,7 +26,8 @@ export async function handler(event: lambda.S3CreateEvent) {
   const ssh = new SSH({
     host: host,
     user: user,
-    key: fs.readFileSync(pemfile),
+    // key: fs.readFileSync(pemfile),
+    key: SSH_KEY,
   });
 
   // let cmd = 'wp';
@@ -33,7 +35,7 @@ export async function handler(event: lambda.S3CreateEvent) {
   //   cmd += ' -l';
   // }
 
-  let prom = new Promise(function (resolve, reject) {
+  let prom = new Promise(function (resolve, _reject) {
 
     let ourout = '';
 

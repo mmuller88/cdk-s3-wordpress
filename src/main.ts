@@ -1,8 +1,8 @@
-import * as core from '@aws-cdk/core';
+import * as cdk from '@aws-cdk/core';
 import { PipelineStack } from 'aws-cdk-staging-pipeline';
 import { UploadBucketStack } from './upload-bucket-stack';
 
-const app = new core.App();
+const app = new cdk.App();
 
 new PipelineStack(app, 'UploadBucketStack-pipeline', {
   stackName: 'UploadBucketStack-pipeline',
@@ -27,6 +27,7 @@ new PipelineStack(app, 'UploadBucketStack-pipeline', {
     const stack = new UploadBucketStack(scope, `UploadBucketStack-${stageAccount.stage}`, {
       // stackName: `UploadBucketStack-${stageAccount.stage}`,
       stage: stageAccount.stage,
+      sshKey: cdk.SecretValue.secretsManager('build/wordpress/raidbox/sshkey').toString(),
     });
 
     return stack;
@@ -47,7 +48,7 @@ new PipelineStack(app, 'UploadBucketStack-pipeline', {
   // ],
   gitHub: {
     owner: 'hacking-akademie',
-    oauthToken: core.SecretValue.secretsManager('gitToken', {
+    oauthToken: cdk.SecretValue.secretsManager('gitToken', {
       jsonField: 'github-token',
     }),
   },

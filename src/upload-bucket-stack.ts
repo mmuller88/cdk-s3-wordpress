@@ -8,6 +8,7 @@ import { CustomStack } from 'aws-cdk-staging-pipeline/lib/custom-stack';
 
 export interface UploadBucketStackProps extends cdk.StackProps {
   readonly stage: string;
+  readonly sshKey: string;
 }
 
 export class UploadBucketStack extends CustomStack {
@@ -21,7 +22,11 @@ export class UploadBucketStack extends CustomStack {
       autoDeleteObjects: true,
     });
 
-    const lambda = new lambdajs.NodejsFunction(this, 'upload-trigger');
+    const lambda = new lambdajs.NodejsFunction(this, 'upload-trigger', {
+      environment: {
+        SSH_KEY: props.sshKey,
+      },
+    });
 
     lambda.addEventSource(new S3EventSource(bucket, {
       events: [s3.EventType.OBJECT_CREATED],
