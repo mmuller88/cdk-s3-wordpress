@@ -28,6 +28,11 @@ export class UploadBucketStack extends CustomStack {
       environment: {
         // SSH_KEY: decode(props.sshKey),
       },
+      bundling: {
+        externalModules: [
+          'ssh2',
+        ],
+      },
     });
 
     lambda.addEventSource(new S3EventSource(bucket, {
