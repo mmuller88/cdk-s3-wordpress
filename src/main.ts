@@ -27,7 +27,7 @@ new PipelineStack(app, 'UploadBucketStack-pipeline', {
     const stack = new UploadBucketStack(scope, `UploadBucketStack-${stageAccount.stage}`, {
       // stackName: `UploadBucketStack-${stageAccount.stage}`,
       stage: stageAccount.stage,
-      sshKey: cdk.SecretValue.secretsManager('build/wordpress/raidbox/sshkey').toString(),
+      // sshKey: cdk.SecretValue.secretsManager('build/wordpress/raidbox/sshkey').toString(),
     });
 
     return stack;

@@ -2,12 +2,15 @@
 // import { execSync } from 'child_process';
 import * as lambda from 'aws-lambda';
 
+import * as AWS from 'aws-sdk';
+var secretsmanager = new AWS.SecretsManager();
+
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 // const { readFileSync } = require('fs');
 
-const SSH_KEY = process.env.SSH_KEY || 'noSshKey';
+// const SSH_KEY = process.env.SSH_KEY || 'noSshKey';
 
-const encode = (str: string): string => Buffer.from(str, 'binary').toString('base64');
+// const encode = (str: string): string => Buffer.from(str, 'binary').toString('base64');
 
 export async function handler(event: lambda.S3CreateEvent) {
   // exports.handler = async (event/*: lambda.DynamoDBStreamEvent*/) => {
@@ -24,12 +27,14 @@ export async function handler(event: lambda.S3CreateEvent) {
   const user = 'wp';
   const host = 'b9emwoc.myraidbox.de';
 
+  const sshKey = await secretsmanager.getSecretValue({ SecretId: 'build/wordpress/raidbox/sshkey' });
+
   // all this config could be passed in via the event
   const ssh = new SSH({
     host: host,
     user: user,
     // key: fs.readFileSync(pemfile),
-    key: encode(SSH_KEY),
+    key: sshKey,
   });
 
   // let cmd = 'wp';
