@@ -4,7 +4,7 @@ import * as lambdajs from '@aws-cdk/aws-lambda-nodejs';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
 import { CustomStack } from 'aws-cdk-staging-pipeline/lib/custom-stack';
-// import * as statement from 'cdk-iam-floyd';
+import * as statement from 'cdk-iam-floyd';
 
 // const decode = (str: string): string => Buffer.from(str, 'base64').toString('binary');
 
@@ -37,6 +37,8 @@ export class UploadBucketStack extends CustomStack {
         ],
       },
     });
+
+    lambda.addToRolePolicy(new statement.Secretsmanager().allow().toGetSecretValue());
 
     lambda.addEventSource(new S3EventSource(bucket, {
       events: [s3.EventType.OBJECT_CREATED],
