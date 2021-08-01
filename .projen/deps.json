@@ -148,7 +148,7 @@
       "type": "runtime"
     },
     {
-      "name": "node-ssh",
+      "name": "simple-ssh",
       "type": "runtime"
     }
   ],
