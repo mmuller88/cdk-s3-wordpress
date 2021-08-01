@@ -10,6 +10,7 @@ const deps = [
   'cdk-iam-floyd',
   '@types/ssh2',
   'ssh2',
+  'node-ssh',
 ];
 
 const project = new AwsCdkTypeScriptApp({

@@ -63,6 +63,7 @@
     "cdk-appsync-transformer": "^1.77.16",
     "cdk-iam-floyd": "^0.220.0",
     "esbuild": "^0",
+    "node-ssh": "^12.0.0",
     "ssh2": "^1.2.0"
   },
   "bundledDependencies": [],

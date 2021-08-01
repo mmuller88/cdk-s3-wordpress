@@ -1645,7 +1645,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/ssh2@*":
+"@types/ssh2@^0.5.47":
   version "0.5.47"
   resolved "https://registry.yarnpkg.com/@types/ssh2/-/ssh2-0.5.47.tgz#67a8b35a0527b2bb668f6dea4c84be6ff1abdc19"
   integrity sha512-ZhqJg8BRV7OsCi0KVqPr27lUMMmLEeHYw1VXUNGGDlQEDq9HTsKx+wYvi8E6oNC6gRZ7PV99ZMZmMr5vztcYYA==
@@ -5182,7 +5182,7 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-make-dir@^3.0.0:
+make-dir@^3.0.0, make-dir@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"
   integrity sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
@@ -5436,6 +5436,18 @@ node-releases@^1.1.71:
   version "1.1.73"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.73.tgz#dd4e81ddd5277ff846b80b52bb40c49edf7a7b20"
   integrity sha512-uW7fodD6pyW2FZNZnp/Z3hvWKeEW1Y8R1+1CnErE8cXFXzl5blBOoVB41CvMer6P6Q0S5FXDwcHgFd1Wj0U9zg==
+
+node-ssh@*:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/node-ssh/-/node-ssh-12.0.0.tgz#5cf00bc2605a9355a674d0ff0ca92afbdf12a088"
+  integrity sha512-kIE4pePn1ZIkce9l4Jdz+nUGkQW08Kp/6cMDr61tnsEipWmTZJxGxpXYFl5uFYRBjswWVkRA+yu8tqvKFqIA/Q==
+  dependencies:
+    is-stream "^2.0.0"
+    make-dir "^3.1.0"
+    sb-promise-queue "^2.1.0"
+    sb-scandir "^3.1.0"
+    shell-escape "^0.2.0"
+    ssh2 "^1.1.0"
 
 nopt@^5.0.0:
   version "5.0.0"
@@ -6351,6 +6363,18 @@ saxes@^5.0.1:
   dependencies:
     xmlchars "^2.2.0"
 
+sb-promise-queue@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/sb-promise-queue/-/sb-promise-queue-2.1.0.tgz#7e44bebef643f75d809a3db7f605b815d877a04d"
+  integrity sha512-zwq4YuP1FQFkGx2Q7GIkZYZ6PqWpV+bg0nIO1sJhWOyGyhqbj0MsTvK6lCFo5TQwX5pZr6SCQ75e8PCDCuNvkg==
+
+sb-scandir@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/sb-scandir/-/sb-scandir-3.1.0.tgz#31c346abb5184b73c5a25b286858f4299aa8756c"
+  integrity sha512-70BVm2xz9jn94zSQdpvYrEG101/UV9TVGcfWr9T5iob3QhCK4lYXeculfBqPGFv3XTeKgx4dpWyYIDeZUqo4kg==
+  dependencies:
+    sb-promise-queue "^2.1.0"
+
 semver-diff@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/semver-diff/-/semver-diff-3.1.1.tgz#05f77ce59f325e00e2706afd67bb506ddb1ca32b"
@@ -6401,6 +6425,11 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
+
+shell-escape@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/shell-escape/-/shell-escape-0.2.0.tgz#68fd025eb0490b4f567a027f0bf22480b5f84133"
+  integrity sha1-aP0CXrBJC09WegJ/C/IkgLX4QTM=
 
 shelljs@^0.8.4:
   version "0.8.4"
@@ -6540,7 +6569,7 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-ssh2@^1.2.0:
+ssh2@^1.1.0, ssh2@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ssh2/-/ssh2-1.2.0.tgz#177a46bb12b7ef2b7bce28bdcbd7eae3cbc50045"
   integrity sha512-vklfVRyylayGV/zMwVEkTC9kBhA3t264hoUHV/yGuunBJh6uBGP1VlzhOp8EsqxpKnG0xkLE1qHZlU0+t8Vh6Q==
