@@ -8,7 +8,8 @@ const deps = [
   'aws-cdk-staging-pipeline',
   'cdk-appsync-transformer',
   'cdk-iam-floyd',
-  'simple-ssh',
+  '@types/ssh2',
+  'ssh2',
 ];
 
 const project = new AwsCdkTypeScriptApp({

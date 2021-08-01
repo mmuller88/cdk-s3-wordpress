@@ -123,6 +123,10 @@
       "type": "runtime"
     },
     {
+      "name": "@types/ssh2",
+      "type": "runtime"
+    },
+    {
       "name": "aws-cdk-staging-pipeline",
       "type": "runtime"
     },
@@ -148,7 +152,7 @@
       "type": "runtime"
     },
     {
-      "name": "simple-ssh",
+      "name": "ssh2",
       "type": "runtime"
     }
   ],

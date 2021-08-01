@@ -6,6 +6,9 @@ import * as AWS from 'aws-sdk';
 var secretsmanager = new AWS.SecretsManager();
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
+import { Client } from 'ssh2';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 // const { readFileSync } = require('fs');
 
 // const SSH_KEY = process.env.SSH_KEY || 'noSshKey';
@@ -19,55 +22,30 @@ export async function handler(event: lambda.S3CreateEvent) {
   const fileName = event.Records[0].s3.object.key;
   fileName;
 
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  // const fs = require('fs');
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const SSH = require('simple-ssh');
-  // const pemfile = 'my.pem';
-  const user = 'wp';
-  const host = 'b9emwoc.myraidbox.de';
+  const sshKey = await (await secretsmanager.getSecretValue({ SecretId: 'build/wordpress/raidbox/sshkey' }).promise()).SecretString;
 
-  const sshKey = await secretsmanager.getSecretValue({ SecretId: 'build/wordpress/raidbox/sshkey' });
-
-  // all this config could be passed in via the event
-  const ssh = new SSH({
-    host: host,
-    user: user,
-    // key: fs.readFileSync(pemfile),
-    key: sshKey,
-  });
-
-  // let cmd = 'wp';
-  // if (event.cmd == 'long') {
-  //   cmd += ' -l';
-  // }
-
-  let prom = new Promise(function (resolve, _reject) {
-
-    let ourout = '';
-
-    ssh.exec('wp', {
-      exit: function () {
-        ourout += '\nsuccessfully exited!';
-        resolve(ourout);
-      },
-      out: (stdout: any) => {
-        ourout += stdout;
-      },
-    }).start({
-      success: () => {
-        console.log('successful connection!');
-      },
-      fail: (e: any) => {
-        console.log('failed connection, boo');
-        console.log(e);
-      },
+  const conn = new Client();
+  conn.on('ready', () => {
+    console.log('Client :: ready');
+    conn.exec('wp', (err, stream) => {
+      if (err) throw err;
+      stream.on('close', (code: string, signal: string) => {
+        console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+        conn.end();
+      }).on('data', (data: string) => {
+        console.log('STDOUT: ' + data);
+      }).stderr.on('data', (data) => {
+        console.log('STDERR: ' + data);
+      });
     });
-
+  }).connect({
+    host: 'b9emwoc.myraidbox.de',
+    port: 22,
+    username: 'wp',
+    privateKey: sshKey,
   });
 
-  const res = await prom;
-  console.debug(`res: ${JSON.stringify(res)}`);
+  // console.debug(`res: ${JSON.stringify(res)}`);
 
 
   // await ssh.connect({
