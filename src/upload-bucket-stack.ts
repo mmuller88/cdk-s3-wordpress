@@ -32,6 +32,9 @@ export class UploadBucketStack extends CustomStack {
         externalModules: [
           'ssh2',
         ],
+        nodeModules: [
+          'ssh2',
+        ],
       },
     });
 
