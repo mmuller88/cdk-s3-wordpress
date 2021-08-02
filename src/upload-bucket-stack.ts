@@ -19,6 +19,7 @@ export class UploadBucketStack extends CustomStack {
       bucketName: 'hacklab-videos',
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
+      publicReadAccess: true,
     });
 
     const lambda = new lambdajs.NodejsFunction(this, 'upload-trigger', {
