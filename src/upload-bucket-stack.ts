@@ -6,11 +6,8 @@ import * as cdk from '@aws-cdk/core';
 import { CustomStack } from 'aws-cdk-staging-pipeline/lib/custom-stack';
 import * as statement from 'cdk-iam-floyd';
 
-// const decode = (str: string): string => Buffer.from(str, 'base64').toString('binary');
-
 export interface UploadBucketStackProps extends cdk.StackProps {
   readonly stage: string;
-  // readonly sshKey: string;
 }
 
 export class UploadBucketStack extends CustomStack {
@@ -25,9 +22,6 @@ export class UploadBucketStack extends CustomStack {
     });
 
     const lambda = new lambdajs.NodejsFunction(this, 'upload-trigger', {
-      environment: {
-        // SSH_KEY: decode(props.sshKey),
-      },
       bundling: {
         externalModules: [
           'ssh2',
@@ -44,13 +38,5 @@ export class UploadBucketStack extends CustomStack {
       events: [s3.EventType.OBJECT_CREATED],
       // filters: [{ prefix: 'subdir/' }], // optional
     }));
-
-
-    // Outputs
-    // const graphql = new cdk.CfnOutput(this, 'appsyncEndpointOutput', {
-    //   description: 'GraphQL Endpoint',
-    //   value: this.appSyncTransformer.appsyncAPI.graphqlUrl,
-    // });
-    // this.cfnOutputs.appsyncEndpointOutput = graphql;
   }
 }
