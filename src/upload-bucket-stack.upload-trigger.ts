@@ -22,7 +22,7 @@ export async function handler(event: lambda.S3CreateEvent) {
   // https://hacklab-videos.s3.eu-central-1.amazonaws.com/hacking-for-noobs.mp4
 
   const objectKey = event.Records[0].s3.object.key;
-  const videoLink = `https://${record.s3.bucket.name}.s3.${record.awsRegion}.amazonaws.com/${fileName}`;
+  const videoLink = `https://${record.s3.bucket.name}.s3.${record.awsRegion}.amazonaws.com/${objectKey}`;
 
   // DateiName: LektionID_Kategorie_Titel
   // z.B. 001_kategorie1_Das-ist-die-erste-Lektion.mp4
