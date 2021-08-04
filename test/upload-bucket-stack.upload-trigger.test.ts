@@ -1,9 +1,20 @@
 import '@aws-cdk/assert/jest';
 import * as lambda from 'aws-lambda';
+import { GetSecretValueResponse } from 'aws-sdk/clients/secretsmanager';
+import * as AWS from '../__mocks__/aws-sdk';
 // import { handler } from '../src/upload-bucket-stack.upload-trigger';
 
 test('Parse S3 data', async () => {
   s3Data;
+
+  const mockResult: GetSecretValueResponse = {
+    SecretString: '',
+  };
+  AWS.getSecretValueResponse.mockReturnValueOnce(mockResult);
+
+  // mock ssh
+
+
   // await handler(s3Data);
 
   // expect(stack).not.toHaveResource('AWS::S3::Bucket');
