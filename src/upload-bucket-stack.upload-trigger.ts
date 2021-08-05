@@ -1,41 +1,38 @@
 import * as lambda from 'aws-lambda';
-
 import * as AWS from 'aws-sdk';
-var secretsmanager = new AWS.SecretsManager();
-
 import { NodeSSH } from 'node-ssh';
+
+var secretsmanager = new AWS.SecretsManager();
 
 export async function handler(event: lambda.S3CreateEvent) {
   console.debug(`event: ${JSON.stringify(event)}`);
 
   const record = event.Records[0];
 
-  const sshKey = await (await secretsmanager.getSecretValue({ SecretId: 'build/wordpress/raidbox/sshkey' }).promise()).SecretString;
+  const sshKey = await (await secretsmanager.getSecretValue({ SecretId: 'sshkey' }).promise()).SecretString;
 
   const ssh = new NodeSSH();
   await ssh.connect({
-    host: 'b9emwoc.myraidbox.de',
+    host: 'mywordpresshoster.com',
     username: 'wp',
     privateKey: sshKey,
   });
-
-  // https://hacklab-videos.s3.eu-central-1.amazonaws.com/hacking-for-noobs.mp4
 
   const objectKey = event.Records[0].s3.object.key;
   const videoLink = `https://${record.s3.bucket.name}.s3.${record.awsRegion}.amazonaws.com/${objectKey}`;
 
   // DateiName: LektionID_KategorieID_Titel
-  // z.B. 001_41_Das-ist-die-erste-Lektion.mp4
+  // eg. 001_41_Das-ist-die-erste-Lektion.mp4
   // Kategorien: 41 - Grundlagen
 
-  const fileName = objectKey.split('.')[0]; // z.B. 001_kategorie1_Das-ist-die-erste-Lektion
-  const videoFormat = objectKey.split('.')[1]; // z.B. mp4
+  const fileName = objectKey.split('.')[0]; // eg. 001_kategorie1_Das-ist-die-erste-Lektion
+  const videoFormat = objectKey.split('.')[1]; // eg. mp4
   videoFormat;
   const splittedFilename = fileName.split('_');
-  const lection = Number(splittedFilename[0]); // z.B. 1
-  const category = Number(splittedFilename[1]); // z.B. 41
+  const lection = Number(splittedFilename[0]); // eg. 1
+  const category = Number(splittedFilename[1]); // eg. 41
   category;
-  const title = splittedFilename[2].replace(/-/g, ' '); // z.B. Das ist die erste Lektion
+  const title = splittedFilename[2].replace(/-/g, ' '); // eg. Das ist die erste Lektion
 
 
   console.debug(`video info: ${lection} ${category} ${title} ${videoFormat}`);
@@ -46,7 +43,7 @@ Lektion ${lection}: ${title}
 
 [/vc_column_text][us_separator][vc_column_text]
 
-Hier befindet sich ein Text indem der Inhalt der Lektion beschrieben wird
+Here will be some content ...
 
 <video poster="PATH-TO-STILL-IMAGE" controls="controls" controlsList=”nodownload” width="640" height="360">
     <source src="${videoLink}" type="video/mp4">
