@@ -24,16 +24,16 @@ export async function handler(event: lambda.S3CreateEvent) {
   const objectKey = event.Records[0].s3.object.key;
   const videoLink = `https://${record.s3.bucket.name}.s3.${record.awsRegion}.amazonaws.com/${objectKey}`;
 
-  // DateiName: LektionID_Kategorie_Titel
-  // z.B. 001_kategorie1_Das-ist-die-erste-Lektion.mp4
-  // Kategorien: Grundlagen
+  // DateiName: LektionID_KategorieID_Titel
+  // z.B. 001_41_Das-ist-die-erste-Lektion.mp4
+  // Kategorien: 41 - Grundlagen
 
   const fileName = objectKey.split('.')[0]; // z.B. 001_kategorie1_Das-ist-die-erste-Lektion
   const videoFormat = objectKey.split('.')[1]; // z.B. mp4
   videoFormat;
   const splittedFilename = fileName.split('_');
   const lection = Number(splittedFilename[0]); // z.B. 1
-  const category = splittedFilename[1]; // z.B. kategorie1
+  const category = Number(splittedFilename[1]); // z.B. 41
   category;
   const title = splittedFilename[2].replace(/-/g, ' '); // z.B. Das ist die erste Lektion
 
@@ -56,7 +56,7 @@ Hier befindet sich ein Text indem der Inhalt der Lektion beschrieben wird
 
   // [/vc_column_text][us_separator size="small"][vc_video 1="href=\`\`${videoLink}\`\`>${videoLink}\`\`" link="${videoLink}" hide_video_title="1" align="center"][/vc_column][/vc_row]
 
-  const wpCommand = `wp-staging post create --post_title='${title}' --post_content='${wpContent}'`; // category?
+  const wpCommand = `wp post create --post_title='${title}' --post_categories='${category}' --post_content='${wpContent}'`; // category?
 
   await ssh.execCommand(wpCommand/*, { cwd:'/var/www' }*/).then(result => {
     console.log('STDOUT: ' + result.stdout);
