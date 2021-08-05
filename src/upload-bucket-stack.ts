@@ -17,8 +17,8 @@ export class UploadBucketStack extends CustomStack {
     // Create S3 Bucket
     const bucket = new s3.Bucket(this, 'hacklab-videos', {
       bucketName: 'hacklab-videos',
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
+      // removalPolicy: cdk.RemovalPolicy.DESTROY,
+      // autoDeleteObjects: true,
       publicReadAccess: true,
     });
 

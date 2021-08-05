@@ -54,8 +54,6 @@ Hier befindet sich ein Text indem der Inhalt der Lektion beschrieben wird
 
 `;
 
-  // [/vc_column_text][us_separator size="small"][vc_video 1="href=\`\`${videoLink}\`\`>${videoLink}\`\`" link="${videoLink}" hide_video_title="1" align="center"][/vc_column][/vc_row]
-
   const wpCommand = `wp post create --post_title='${title}' --post_categories='${category}' --post_content='${wpContent}'`; // category?
 
   await ssh.execCommand(wpCommand/*, { cwd:'/var/www' }*/).then(result => {
